@@ -1,0 +1,106 @@
+@font-face {
+    font-family: 'iceJaram-Rg';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/iceJaram-Rg.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    margin: 0; padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+*::placeholder,
+input,
+textarea {
+    font-family: 'iceJaram-Rg';
+    outline: none;
+}
+
+.font-normal {
+    font-family: 'Pretendard-Regular';
+}
+
+html, body {
+    background-color: #F3F4EE;
+    font-family: 'iceJaram-Rg';
+    background-size: 20px 20px;
+    background-image:
+        linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+}
+.center {
+    text-align: center;
+}
+
+.title {
+    padding-top: 80px;
+    font-size: 45px;
+}
+.subtitle {
+    padding-top: 20px;
+    font-size: 25px;
+}
+
+.write-form {
+    width: 1000px;
+    margin: 50px auto;
+}
+.diary-mood {
+    margin-bottom: 30px;
+}
+.diary-title,
+.diary-weather{
+    width: 100%;
+    background: transparent;
+    padding: 10px;
+    border: 0;
+    font-size: 30px;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+}
+.diary-body {
+    width: 100%;
+    padding: 10px;
+    font-size: 25px;
+    height: 300px;
+    background: transparent;
+    border: 0;
+}
+input[type="radio"] {
+    width: 0px;
+    height: 0px;
+}
+label img {
+    height: 50px;
+    filter: grayscale(100%);
+    opacity: 0.3;
+    cursor: pointer;
+}
+input:checked+label img {
+    filter: none;
+    opacity: 1;
+    animation: grow 1s;
+}
+@keyframes grow{
+    50% {
+        transform: scale(110%);
+    }
+}
+
+/*하단*/
+.copyright {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 30px 0;
+    font-size: 13px;
+}
