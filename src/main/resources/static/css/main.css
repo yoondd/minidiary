@@ -19,7 +19,8 @@
 
 *::placeholder,
 input,
-textarea {
+textarea,
+pre{
     font-family: 'iceJaram-Rg';
     outline: none;
 }
@@ -114,22 +115,28 @@ input:checked+label img {
     width: 70px;
 }
 
-.diary-body {
+.diary-container {
     text-align: center;
     margin-top: 100px;
 }
-.diary-body img {
+.diary-container img {
     display: block;
     margin: 0 auto 20px;
 }
-
+.diary-container pre {
+    font-size: 27px;
+    margin: 20px 0;
+}
+.body-weather {
+    font-size: 20px;
+}
 .body-title {
     position: relative;
     display: inline-block;
     font-size: 40px;
     z-index: 1;
 
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 .body-title::after {
       content: '';
@@ -176,37 +183,45 @@ input:checked+label img {
 .body-title.EXCITE::after {
     background: linear-gradient(
             to right,
+            rgba(237, 108, 157, 0.25),
             rgba(237, 108, 157, 0.5),
-            rgba(237, 108, 157, 0.8),
-            rgba(237, 108, 157, 0.6)
+            rgba(237, 108, 157, 0.4)
     );
 }
 
-.btn {
-    display: block;
-    width: 150px;
-    margin: 50px auto 0;
-    background-color: #333;
-    color: #fff;
-    padding: 15px 0;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 20px;
-}
+
 
 .mode-change {
     position: fixed;
     right: 30px;
     top: 30px;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     background-size: cover;
     background-position: center;
     background-image: url('/img/moon.png');
     cursor: pointer;
 }
 
+.btn-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    gap: 20px;
+}
 
+.btn {
+    display: block;
+    /*background-color: #333;
+    color: #fff;
+    padding: 10px ;*/
+    text-align: center;
+    text-decoration: none;
+    border: 0;
+}
+.btn img {
+    width: 25px;
+}
 
 /*하단*/
 .copyright {

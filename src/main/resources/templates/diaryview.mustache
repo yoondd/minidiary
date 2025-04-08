@@ -3,16 +3,22 @@
 
 
 {{#diary}}
-    <div class="diary-body">
+    <div class="diary-container">
         <div>
             <img src="/img/emoji_{{mood}}.png" class="mood-icon">
         </div>
-        <h2 class="body-title {{mood}}">{{title}}</h2>
         <div class="body-weather">{{weather}}</div>
-        <div class="body-body">{{body}}</div>
+        <h2 class="body-title {{mood}}">{{title}}</h2>
+        <pre class="body-body">{{body}}</pre>
 
-        <a href="/diary/{{id}}/delete">일기 지우기</a>
-        <a href="/list" class="btn">일기장 목록</a>
+        <div class="btn-group">
+            <a href="/diary/{{id}}/delete" class="btn font-normal">
+                <img src="/img/delete.png" alt="일기장 삭제">
+            </a>
+            <a href="/list" class="btn font-normal">
+                <img src="/img/list.png" alt="일기장 목록">
+            </a>
+        </div>
 
     </div>
 {{/diary}}
