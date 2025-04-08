@@ -1,9 +1,19 @@
 {{>layouts/header}}
 
+
+
 {{#diary}}
-    <div style="border: 1px solid black;">
-        {{title}}
-        {{mood}}
+    <div class="diary-body">
+        <div>
+            <img src="/img/emoji_{{mood}}.png" class="mood-icon">
+        </div>
+        <h2 class="body-title {{mood}}">{{title}}</h2>
+        <div class="body-weather">{{weather}}</div>
+        <div class="body-body">{{body}}</div>
+
+        <a href="/diary/{{id}}/delete">일기 지우기</a>
+        <a href="/list" class="btn">일기장 목록</a>
+
     </div>
 {{/diary}}
 

@@ -1,16 +1,20 @@
 package com.example.miniDiary.entity;
 
 import com.example.miniDiary.type.Mood;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 public class Diary {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "user_seq", sequenceName = "user_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     private Long id;
 
     @Column
@@ -43,4 +47,6 @@ public class Diary {
                 ", body='" + body + '\'' +
                 '}';
     }
+
+
 }

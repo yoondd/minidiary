@@ -1,5 +1,9 @@
 {{>layouts/header}}
 
+<h1 class="title center">하루를 기록하는 곳</h1>
+<p class="subtitle center">{{username}}님의 하루는 어땠나요?</p>
+
+
 <form action="/write_process" method="post" class="write-form">
     <div class="diary-mood">
         <input type="radio" value="HAPPY" id="mood_happy" name="mood" checked>

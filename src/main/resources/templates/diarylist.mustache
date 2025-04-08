@@ -1,7 +1,15 @@
 {{>layouts/header}}
+<h1 class="title center">하루를 기록하는 곳</h1>
+<p class="subtitle center">minidiary</p>
 
-{{contents}}
-{{title}}
+<div class="mood-section">
+{{#contents}}
+    <a class="mood-box" href="/diary/{{id}}" title="{{title}}">
+        <img src="/img/emoji_{{mood}}.png" class="mood-icon">
+    </a>
 {{/contents}}
+</div>
+<a href="/write" class="btn font-normal">+ new</a>
+
 
 {{>layouts/footer}}

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @Slf4j
 public class DiaryController {
@@ -22,18 +24,18 @@ public class DiaryController {
     @GetMapping("/list")
     public String diaryList(Model model){
         model.addAttribute("username", "혜경");
-        //Diary contents = diaryRepository.findAll();
-        //model.addAttribute("contents", contents)
+        List<Diary> contents = diaryRepository.findAll();
+        model.addAttribute("contents", contents);
         return "diarylist";
     }
 
     @GetMapping("/diary/{id}")
     public String diaryRead(@PathVariable Long id, Model model){
         log.info("id= "+id);
+        model.addAttribute("username", "혜경");
         Diary diaryEntity = diaryRepository.findById(id).orElse(null);
-
         model.addAttribute("diary", diaryEntity);
-        return "redirect:diaryview";
+        return "diaryview";
     }
     @GetMapping("/write")
     public String diaryWrite(Model model){
@@ -50,7 +52,16 @@ public class DiaryController {
         //리파지토리에게 저장하도록 시킴
         Diary saved = diaryRepository.save(diary);
         System.out.println(saved);
-        return "";
+        return "redirect:/diary/"+diary.getId();
+    }
+
+    @GetMapping("/diary/{id}/delete")
+    public String diaryDelete(@PathVariable Long id){
+        Diary deleted = diaryRepository.findById(id).orElse(null);
+        if(deleted != null){
+            diaryRepository.delete(deleted);
+        }
+        return "redirect:/list";
     }
 
 
