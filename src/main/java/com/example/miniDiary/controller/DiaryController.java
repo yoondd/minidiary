@@ -7,11 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -22,12 +20,42 @@ public class DiaryController {
     private DiaryRepository diaryRepository;
 
     @GetMapping("/list")
-    public String diaryList(Model model){
-        model.addAttribute("username", "혜경");
-        List<Diary> contents = diaryRepository.findAll();
-        model.addAttribute("contents", contents);
-        return "diarylist";
+    public String diaryList(Model model) {
+        // 날짜 가져오기
+        LocalDate currentDate = LocalDate.now();
+        int year = currentDate.getYear();
+        int month = currentDate.getMonthValue();
+
+        return "redirect:/list/" + year + String.format("%02d", month);
     }
+
+    // 특정 연/월의 데이터를 가져오는 메서드
+    @GetMapping("/list/{yearMonth}")
+    public String diaryListByYearMonth(@PathVariable String yearMonth, Model model) {
+        // yearMonth를 파싱하여 연도와 월을 분리
+        int year = Integer.parseInt(yearMonth.substring(0, 4));
+        int month = Integer.parseInt(yearMonth.substring(4, 6));
+
+        // 해당 연/월의 데이터 조회
+        List<Diary> contents = diaryRepository.findByYearAndMonth(year, month);
+
+        // 모델에 데이터 추가
+        model.addAttribute("username", "혜경");
+        model.addAttribute("contents", contents);
+        model.addAttribute("year", year);
+        model.addAttribute("month", month);
+
+        return "diarylist"; // 뷰 이름 반환
+    }
+
+//    @GetMapping("/list")
+//    public String diaryList(Model model){
+//        model.addAttribute("username", "혜경");
+//        model.addAttribute("isDarkMode", isDarkMode); // 다크모드 변수 추가
+//        List<Diary> contents = diaryRepository.findAll();
+//        model.addAttribute("contents", contents);
+//        return "diarylist";
+//    }
 
     @GetMapping("/diary/{id}")
     public String diaryRead(@PathVariable Long id, Model model){
@@ -45,7 +73,6 @@ public class DiaryController {
 
     @PostMapping("/write_process")
     public String writeProcess(@ModelAttribute  DiaryDto form){
-        System.out.println(form.toString());
         //엔티티로 변환
         Diary diary = form.toEntity();
 
@@ -55,7 +82,29 @@ public class DiaryController {
         return "redirect:/diary/"+diary.getId();
     }
 
-    @GetMapping("/diary/{id}/delete")
+    @GetMapping("/diary/{id}/update")
+    public String diaryUpdate(@PathVariable Long id, Model model){
+        Diary diary = diaryRepository.findById(id).orElse(null);
+        model.addAttribute("diary", diary);
+        return "update";
+    }
+
+    @PostMapping("/update_process")
+    public String updateProcess(@ModelAttribute DiaryDto form){
+
+        Diary diaryEntity = form.toEntity();
+        Diary updated = diaryRepository.findById(diaryEntity.getId()).orElse(null);
+
+        if(updated!=null){
+            diaryRepository.save(diaryEntity);
+        }
+
+        return "redirect:/diary/"+diaryEntity.getId();
+    }
+
+
+
+    @GetMapping("/diary/{id}/delete_process")
     public String diaryDelete(@PathVariable Long id){
         Diary deleted = diaryRepository.findById(id).orElse(null);
         if(deleted != null){
@@ -63,6 +112,9 @@ public class DiaryController {
         }
         return "redirect:/list";
     }
+
+
+
 
 
 

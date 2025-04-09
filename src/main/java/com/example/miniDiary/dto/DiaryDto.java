@@ -8,19 +8,24 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.xml.datatype.Duration;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 public class DiaryDto {
 
+    private Long id;
     private Mood mood;
+    private LocalDate date;
     private String title;
     private String weather;
     private String body;
 
 
-    public DiaryDto(Mood mood, String title, String weather, String body) {
+    public DiaryDto(Long id, Mood mood, LocalDate date, String title, String weather, String body) {
+        this.id = id;
         this.mood = mood;
+        this.date = date;
         this.title = title;
         this.weather = weather;
         this.body = body;
@@ -29,7 +34,9 @@ public class DiaryDto {
     @Override
     public String toString() {
         return "DiaryDto{" +
-                "mood=" + mood +
+                "id=" + id +
+                ", mood=" + mood +
+                ", date=" + date +
                 ", title='" + title + '\'' +
                 ", weather='" + weather + '\'' +
                 ", body='" + body + '\'' +
@@ -37,6 +44,6 @@ public class DiaryDto {
     }
 
     public Diary toEntity() {
-        return new Diary(null, mood, title, weather, body);
+        return new Diary(id, date, mood, title, weather, body);
     }
 }

@@ -1,0 +1,54 @@
+{{>layouts/header}}
+
+<h1 class="title center">일기장 수정하기</h1>
+
+
+{{#diary}}
+<form action="/update_process" method="post" class="write-form">
+    <input type="hidden" value="{{id}}" name="id">
+    <div class="diary-mood">
+        <input type="radio" value="HAPPY" id="mood_happy" name="mood">
+        <label for="mood_happy">
+            <img src="/img/emoji_happy.png" alt="행복">
+        </label>
+        <input type="radio" value="SAD" id="mood_sad" name="mood">
+        <label for="mood_sad">
+            <img src="/img/emoji_sad.png" alt="슬픔">
+        </label>
+        <input type="radio" value="SURPRISE" id="mood_surprise" name="mood">
+        <label for="mood_surprise">
+            <img src="/img/emoji_surprise.png" alt="놀라움">
+        </label>
+        <input type="radio" value="ANGRY" id="mood_angry" name="mood">
+        <label for="mood_angry">
+            <img src="/img/emoji_angry.png" alt="분노">
+        </label>
+        <input type="radio" value="EXCITE" id="mood_excite" name="mood">
+        <label for="mood_excite">
+            <img src="/img/emoji_excite.png" alt="설렘">
+        </label>
+    </div>
+    <script>
+        const moodList = document.querySelectorAll(`input[name="mood"]`);
+        moodList.forEach((moodInput, index)=>{
+            if(moodInput.value == '{{mood}}'){
+                moodInput.checked = true;
+            }
+        })
+    </script>
+
+    <input type="date" class="diary-date" id="diary_date" name="date" value="{{date}}">
+    <input type="text" name="title" class="diary-title" placeholder="일기의 제목을 적어주세요" value="{{title}}">
+    <input type="text" name="weather" class="diary-weather" placeholder="오늘 날씨를 한 줄로 표현한다면?" value="{{weather}}">
+    <textarea name="body" class="diary-body" placeholder="오늘 하루는 어떻게 보냈나요?">{{body}}</textarea>
+
+    <div class="btn-group">
+        <button class="diary-submit btn font-normal">
+            <img src="/img/checkmark.png" alt="작성완료">
+        </button>
+    </div>
+
+
+</form>
+{{/diary}}
+{{>layouts/footer}}

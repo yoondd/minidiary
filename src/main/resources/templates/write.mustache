@@ -27,13 +27,28 @@
             <img src="/img/emoji_excite.png" alt="설렘">
         </label>
     </div>
+    <input type="date" class="diary-date" id="diary_date" name="date">
     <input type="text" name="title" class="diary-title" placeholder="일기의 제목을 적어주세요">
     <input type="text" name="weather" class="diary-weather" placeholder="오늘 날씨를 한 줄로 표현한다면?">
     <textarea name="body" class="diary-body" placeholder="오늘 하루는 어떻게 보냈나요?"></textarea>
 
     <div class="btn-group">
-        <button class="diary-submit btn font-normal">저장하기</button>
+        <button class="diary-submit btn font-normal">
+            <img src="/img/checkmark.png" alt="작성완료">
+        </button>
     </div>
+
+    <script>
+        const today = new Date();
+        document.getElementById('diary_date').value = `${
+                today.getFullYear()}-${
+                        today.getMonth()+1 < 10 ? '0'+(today.getMonth()+1) : today.getMonth()
+                    }-${
+                        today.getDate() < 10 ? '0'+today.getDate() : today.getDate()
+                    }`;
+        //document.getElementById('diary_date').value= `2025-04-08`;
+    </script>
+
 </form>
 
 {{>layouts/footer}}

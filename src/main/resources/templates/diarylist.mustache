@@ -1,18 +1,79 @@
 {{>layouts/header}}
 <h1 class="title center">하루를 기록하는 곳</h1>
-<p class="subtitle center">minidiary</p>
+<p class="subtitle center">{{year}}. {{month}}월의 일기</p>
 
 <div class="mood-section">
-{{#contents}}
-    <a class="mood-box" href="/diary/{{id}}" title="{{title}}">
-        <img src="/img/emoji_{{mood}}.png" class="mood-icon">
-    </a>
-{{/contents}}
+
+    <div class="calendar"></div>
+
+    <script>
+
+        const getRandomBorderRadius = () =>{
+            const topLeft = (Math.floor(Math.random() * 50) + 30) + "%";
+            const topRight = (Math.floor(Math.random() * 50) + 30) + "%";
+            const bottomRight = (Math.floor(Math.random() * 50) + 30) + "%";
+            const bottomLeft =(Math.floor(Math.random() * 50) + 30) + "%";
+            return `${topLeft} ${topRight} ${bottomRight} ${bottomLeft}`;
+        }
+
+        const $calendar = document.querySelector('.calendar');
+        let cal = new Date();
+
+        const currentYear = {{year}};
+        const currentMonth = {{month}};
+
+
+        cal.setFullYear(currentYear);
+        cal.setMonth(currentMonth - 1);
+        cal.setDate(1);
+        const week = cal.getDay();
+
+        for (let i = 0; i < week; i++) {
+            const emptyElement = document.createElement('div');
+            emptyElement.setAttribute('class', `date_empty`);
+            emptyElement.style.borderRadius = getRandomBorderRadius();
+            $calendar.append(emptyElement);
+        }
+
+        cal.setMonth(currentMonth);
+        cal.setDate(0);
+        const dateAmount = cal.getDate();
+
+        for (let i = 0; i < dateAmount; i++) {
+            const newElement = document.createElement('div');
+            const dayString = String(i + 1).padStart(2, '0');
+            newElement.setAttribute('id', `date_${dayString}`);
+            newElement.style.borderRadius = getRandomBorderRadius();
+            newElement.textContent = dayString;
+            $calendar.append(newElement);
+        }
+
+
+        {{#contents}}
+            //const를 이해하지못해서 내가 (function(){})(); 으로 만듬
+            (function() {
+                const diaryDate = new Date(`{{date}}`);
+            const diaryYear = diaryDate.getFullYear();
+            const diaryMonth = diaryDate.getMonth() + 1;
+            const diaryDay = String(diaryDate.getDate()).padStart(2, '0');
+
+            if (diaryYear === currentYear && diaryMonth === currentMonth) {
+                document.querySelector(`#date_${diaryDay}`).innerHTML =
+                    `<a class="mood-box" href="/diary/{{id}}" title="{{title}}">
+                        <img src="/img/emoji_{{mood}}.png" class="mood-icon">
+                    </a>`;
+            }
+            })();
+        {{/contents}}
+    </script>
+
+
 </div>
 
 <div class="btn-group">
-    <a href="/write" class="btn font-normal">+ new</a>
+    <a href="/write" class="btn font-normal">
+        <img src="/img/pencil.png" alt="일기쓰기">
+    </a>
 </div>
-
 
 {{>layouts/footer}}
