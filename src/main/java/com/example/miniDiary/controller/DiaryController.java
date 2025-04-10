@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -36,14 +37,29 @@ public class DiaryController {
         int year = Integer.parseInt(yearMonth.substring(0, 4));
         int month = Integer.parseInt(yearMonth.substring(4, 6));
 
+
         // 해당 연/월의 데이터 조회
         List<Diary> contents = diaryRepository.findByYearAndMonth(year, month);
+
+        // 현재 연/월을 LocalDate로 변환
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMM");
+        LocalDate currentDate = LocalDate.of(year, month, 1);
+
+        // 이전 달 계산
+        LocalDate prevMonthDate = currentDate.minusMonths(1);
+        String prevYearMonth = prevMonthDate.format(formatter); // yyyyMM 형식으로 변환
+
+        // 다음 달 계산
+        LocalDate nextMonthDate = currentDate.plusMonths(1);
+        String nextYearMonth = nextMonthDate.format(formatter); // yyyyMM 형식으로 변환
 
         // 모델에 데이터 추가
         model.addAttribute("username", "혜경");
         model.addAttribute("contents", contents);
         model.addAttribute("year", year);
         model.addAttribute("month", month);
+        model.addAttribute("prevyear", prevYearMonth);
+        model.addAttribute("nextyear", nextYearMonth);
 
         return "diarylist"; // 뷰 이름 반환
     }
@@ -91,14 +107,11 @@ public class DiaryController {
 
     @PostMapping("/update_process")
     public String updateProcess(@ModelAttribute DiaryDto form){
-
         Diary diaryEntity = form.toEntity();
         Diary updated = diaryRepository.findById(diaryEntity.getId()).orElse(null);
-
         if(updated!=null){
             diaryRepository.save(diaryEntity);
         }
-
         return "redirect:/diary/"+diaryEntity.getId();
     }
 

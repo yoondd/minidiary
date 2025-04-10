@@ -1,10 +1,16 @@
 {{>layouts/header}}
 <h1 class="title center">하루를 기록하는 곳</h1>
-<p class="subtitle center">{{year}}. {{month}}월의 일기</p>
+<p class="subtitle center"><span>{{year}}. {{month}}월</span>의 일기</p>
 
 <div class="mood-section">
 
-    <div class="calendar"></div>
+    <div class="calendar-wrap">
+        <div class="calendar"></div>
+        <div class="arrow">
+            <a href="/list/{{prevyear}}" class="arrow-prev">prev</a>
+            <a href="/list/{{nextyear}}" class="arrow-next">next</a>
+        </div>
+    </div>
 
     <script>
 
@@ -17,6 +23,8 @@
         }
 
         const $calendar = document.querySelector('.calendar');
+
+
         let cal = new Date();
 
         const currentYear = {{year}};
