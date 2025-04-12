@@ -126,6 +126,16 @@ input:checked+label img {
     display: block;
     width: 70px;
 }
+@media(max-width: 1000px) {
+    .mood-icon{
+        width: 55px;
+    }
+}
+@media(max-width: 500px){
+    .mood-icon{
+        width: 40px;
+    }
+}
 
 .diary-container {
     text-align: center;
@@ -281,6 +291,20 @@ body.dark-mode .btn img {
     font-size: 30px;
     border-radius: 23px 18px 30px 22px;
     line-height: 65px;
+}
+@media(max-width: 1000px){
+    .calendar>div:not(.date_empty) {
+        width: 53px;
+        height: 53px;
+        font-size: 20px;
+    }
+}
+@media(max-width: 500px){
+    .calendar>div:not(.date_empty) {
+        width: 35px;
+        height: 35px;
+        font-size: 15px;
+    }
 }
 
 /*하단*/
