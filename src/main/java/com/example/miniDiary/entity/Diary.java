@@ -35,6 +35,26 @@ public class Diary {
     private String body;
 
 
+    public Diary toEntity() {
+        return new Diary( id, date, mood, title, weather, body );
 
+    }
 
+    public void patch(Diary diary) {
+        if(diary.date != null){
+            this.date = diary.date;
+        }
+        if(diary.mood != null) {
+            this.mood = diary.mood;
+        }
+        if(diary.title != null) {
+            this.title = diary.title;
+        }
+        if(diary.weather != null) {
+            this.weather = diary.weather;
+        }
+        if(diary.body != null) {
+            this.body = diary.body;
+        }
+    }
 }
