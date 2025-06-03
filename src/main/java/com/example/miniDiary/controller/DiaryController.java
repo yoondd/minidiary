@@ -17,6 +17,8 @@ import java.util.List;
 @Slf4j
 public class DiaryController {
 
+    //공부하기전 코드
+
     @Autowired
     private DiaryRepository diaryRepository;
 
@@ -36,7 +38,6 @@ public class DiaryController {
         // yearMonth를 파싱하여 연도와 월을 분리
         int year = Integer.parseInt(yearMonth.substring(0, 4));
         int month = Integer.parseInt(yearMonth.substring(4, 6));
-
 
         // 해당 연/월의 데이터 조회
         List<Diary> contents = diaryRepository.findByYearAndMonth(year, month);
